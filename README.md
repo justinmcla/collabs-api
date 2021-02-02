@@ -1,24 +1,23 @@
-# README
+# Collabs API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the API built to serve the Collabs client web app. Readme will be completed throughout development.
 
-Things you may want to cover:
+TBD:
 
-* Ruby version
+- Ruby version
 
-* System dependencies
+- System dependencies
 
-* Configuration
+- Configuration
 
-* Database creation
+- Database creation
 
-* Database initialization
+- Database initialization
 
-* How to run the test suite
+- How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+- Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+- Deployment instructions
 
-* ...
+- ...
