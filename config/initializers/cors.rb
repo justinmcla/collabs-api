@@ -5,6 +5,11 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
+
+# This is being enabled on an environmental basis.
+# Please see the appropriate file in config/environments/ to enable/disable this feature.
+
+
 # Rails.application.config.middleware.insert_before 0, Rack::Cors do
 #   allow do
 #     origins 'example.com'
