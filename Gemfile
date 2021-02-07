@@ -33,6 +33,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Use rspec for unit testing
   gem 'rspec-rails', '~> 4.0.2'
+  # Generate fake data for seeds/testing
+  gem 'faker'
 end
 
 group :development do
