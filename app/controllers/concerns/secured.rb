@@ -13,7 +13,8 @@ module Secured
 
   # Call auth_token & handle verification/decode errors
   def authenticate_request!
-    auth_token
+    payload = auth_token
+    @sub = payload.first['sub']
   rescue JWT::VerificationError, JWT::DecodeError
     render json: { errors: ['Not Authenticated'], status: :unauthorized }
   end
