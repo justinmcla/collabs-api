@@ -4,4 +4,5 @@ class Job < ApplicationRecord
   validates :title, presence: true
   validates :employer, presence: true
 
+  has_one :location, as: :locatable
 end
