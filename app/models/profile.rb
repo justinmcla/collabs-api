@@ -3,6 +3,7 @@ class Profile < ApplicationRecord
 
   # VALIDATIONS
   validates :name, presence: true
+  validates :url, presence: true, uniqueness: true
 
   # POLYMORPHIC ASSOCIATIONS
   has_many :locations, as: :locatable
