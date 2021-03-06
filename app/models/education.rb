@@ -13,4 +13,6 @@ class Education < ApplicationRecord
     ], message: "%{value} is not a valid option"
   }
   validates :institution, presence: true
+
+  has_one :location, as: :locatable
 end
