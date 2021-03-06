@@ -11,5 +11,4 @@ class Profile < ApplicationRecord
   has_many :educations, as: :educatable
   has_many :social_links, as: :linkable
   has_many :languages, as: :languageable
-  
 end
