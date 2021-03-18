@@ -1,5 +1,5 @@
 class Location < ApplicationRecord
-  belongs_to :locatable, polymorphic: true
+  belongs_to :profile
 
   validates :city, presence: true
   validates :state, presence: true

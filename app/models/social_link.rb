@@ -1,3 +1,3 @@
 class SocialLink < ApplicationRecord
-  belongs_to :linkable, polymorphic: true
+  belongs_to :profile
 end
