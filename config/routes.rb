@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     resources :users
     resources :profiles
     resources :collaborations
+    get '/profiles/query/:query', to: 'profiles#index'
+    get '/profiles/search/:endpoint', to: 'profiles#search'
   end
 end 
