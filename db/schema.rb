@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_14_042731) do
+ActiveRecord::Schema.define(version: 2021_03_14_174928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,47 +44,12 @@ ActiveRecord::Schema.define(version: 2021_03_14_042731) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "educations", force: :cascade do |t|
-    t.string "highest_level"
-    t.string "institution"
-    t.string "educatable_type", null: false
-    t.bigint "educatable_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["educatable_type", "educatable_id"], name: "index_educations_on_educatable_type_and_educatable_id"
-  end
-
-  create_table "jobs", force: :cascade do |t|
-    t.string "title"
-    t.string "employer"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.string "jobable_type", null: false
-    t.bigint "jobable_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["jobable_type", "jobable_id"], name: "index_jobs_on_jobable_type_and_jobable_id"
-  end
-
-  create_table "languages", force: :cascade do |t|
-    t.string "lang"
-    t.string "proficiency"
-    t.string "languageable_type", null: false
-    t.bigint "languageable_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["languageable_type", "languageable_id"], name: "index_languages_on_languageable_type_and_languageable_id"
-  end
-
   create_table "locations", force: :cascade do |t|
     t.string "city"
     t.string "state"
     t.string "zip"
-    t.string "locatable_type", null: false
-    t.bigint "locatable_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable_type_and_locatable_id"
+    t.bigint "profile_id", null: false
+    t.index ["profile_id"], name: "index_locations_on_profile_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -95,17 +60,15 @@ ActiveRecord::Schema.define(version: 2021_03_14_042731) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "url"
+    t.string "profession"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "social_links", force: :cascade do |t|
-    t.string "handle"
     t.string "provider"
-    t.string "linkable_type", null: false
-    t.bigint "linkable_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["linkable_type", "linkable_id"], name: "index_social_links_on_linkable_type_and_linkable_id"
+    t.string "handle"
+    t.bigint "profile_id", null: false
+    t.index ["profile_id"], name: "index_social_links_on_profile_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -125,5 +88,7 @@ ActiveRecord::Schema.define(version: 2021_03_14_042731) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "locations", "profiles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "social_links", "profiles"
 end
