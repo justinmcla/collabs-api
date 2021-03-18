@@ -10,7 +10,26 @@ User.all.each do |user|
   profile_data = {
     name: Faker::Name.name,
     birthdate: Faker::Date.in_date_period(year: 2000),
-    about: Faker::Lorem.paragraph
+    about: Faker::Lorem.paragraph,
+    url: "/" + Faker::Internet.slug,
+    profession: Faker::Job.title
   }
-  user.create_profile(profile_data)
+  user.create_profile(profile_data) unless user.profile
+
+  location_data = {
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    zip: Faker::Address.zip
+  }
+  location = Location.create(location_data)
+  user.profile.location = location
+
+  social_data = [
+    { provider: "Twitter", handle: Faker::Twitter.screen_name },
+    { provider: "Instagram", handle: Faker::Internet.slug }
+  ]
+
+  social_data.each do |data|
+    user.profile.social_links.create(data)
+  end
 end
