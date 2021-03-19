@@ -15,6 +15,10 @@ class User < ApplicationRecord
     User.where(id: ids)
   end
 
+  def pending_collaborations
+    collaborations_as_sender.pending.map{|collaboration| collaboration.receiver} + collaborations_as_receiver.pending.map{|collaboration| collaboration.sender}
+  end
+
   private
 
   def generate_uuid
