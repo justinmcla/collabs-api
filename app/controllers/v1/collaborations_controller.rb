@@ -1,8 +1,8 @@
 class V1::CollaborationsController < ApplicationController
   def index
-    users = User.where("sub != '#{@sub}'").limit(5)
-    profiles = users.map { |user| user.profile }
-    render json: ProfileSerializer.new(profiles).serializable_hash[:data].map{ |profile| profile[:attributes] }
+    user = User.find_by(sub: @sub)
+    profiles = user.collabs.map{ |collab| collab.profile }
+    render json: { data: ProfileSerializer.new(profiles).serializable_hash[:data].map{ |collaboration| collaboration[:attributes]}, status: 200 }
   end
 
   def show
