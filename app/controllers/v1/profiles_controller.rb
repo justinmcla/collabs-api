@@ -1,7 +1,11 @@
 class V1::ProfilesController < ApplicationController
   def index
-    if params[:query]
-      profiles = Profile.where("name ILIKE ? OR profession ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    if params[:query] == 'all'
+      users = User.where("sub != '#{@sub}'").limit(5)
+      profiles = users.map { |user| user.profile unless user.collabs.include(User.find_by(sub: @sub)) }  
+      render json: ProfileSerializer.new(profiles).serializable_hash[:data].map{ |profile| profile[:attributes] }
+    else
+      profiles = Profile.where("name ILIKE ? OR profession ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%").limit(5)
       render json: ProfileSerializer.new(profiles).serializable_hash[:data].map{ |profile| profile[:attributes] }
     end
   end
@@ -12,6 +16,9 @@ class V1::ProfilesController < ApplicationController
   end
 
   def update
+    user = User.find_by sub: @sub
+    user.profile.update(strong_params)
+    render json: { data: ProfileSerializer.new(user.profile).serializable_hash[:data][:attributes], status: 200 }
   end
 
   def search
