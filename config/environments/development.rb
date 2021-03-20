@@ -59,6 +59,9 @@ Rails.application.configure do
         methods: %i[get post put patch delete options head]
     end
   end
-
   
 end
+
+Rails.application.routes.default_url_options = {
+  host: 'http://localhost:3001'
+}
