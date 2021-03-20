@@ -41,6 +41,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.2'
   # Generate fake data for seeds/testing
   gem 'faker'
+  # Use environment variables in dev, test
+  gem 'dotenv-rails'
 end
 
 group :development do
