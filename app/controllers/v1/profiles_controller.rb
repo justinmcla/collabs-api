@@ -28,4 +28,8 @@ class V1::ProfilesController < ApplicationController
   def render_not_found
     render json: { status: :unprocessable_entity, errors: ['Record not found'] }
   end
+
+  def strong_params
+    params.require(:profile).permit(:id, :name, :birthdate, :profile_picture)
+  end
 end
