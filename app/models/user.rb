@@ -10,13 +10,12 @@ class User < ApplicationRecord
   has_many :collaborations_as_receiver, class_name: "Collaboration", foreign_key: "receiver_id"
   has_many :collabs_as_receiver, -> { where(collaborations: { accepted: true }) }, through: :collaborations_as_receiver, source: :sender
 
-  def collabs
-    ids = collabs_as_receiver.pluck(:id).concat(collabs_as_sender.pluck(:id))
-    User.where(id: ids)
+  def pending_collaborations
+    collaborations_as_sender.pending + collaborations_as_receiver.pending
   end
 
-  def pending_collaborations
-    collaborations_as_sender.pending.map{|collaboration| collaboration.receiver} + collaborations_as_receiver.pending.map{|collaboration| collaboration.sender}
+  def accepted_collaborations
+    collaborations_as_sender.accepted + collaborations_as_receiver.accepted
   end
 
   private
