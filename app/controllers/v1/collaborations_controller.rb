@@ -1,23 +1,83 @@
 class V1::CollaborationsController < ApplicationController
   def index
-    user = User.find_by(sub: @sub)
-    profiles = user.collabs.map{ |collab| collab.profile }
-    render json: { data: ProfileSerializer.new(profiles).serializable_hash[:data].map{ |collaboration| collaboration[:attributes]}, status: 200 }
+    if @user
+      render json: { 
+        data: CollaborationSerializer.new(@user.accepted_collaborations).serializable_hash[:data].map{ |collaboration| collaboration[:attributes]}, 
+        status: 200 
+      }
+    else
+      render json: { 
+        errors: ['No records found'], 
+        status: 422 
+      }
+    end
   end
 
-  def show
-    user = User.find_by uuid: params[:id]
-    user ? render_collabs(user) : render_not_found
+  def pending
+    if @user
+      render json: { 
+        data: CollaborationSerializer.new(@user.pending_collaborations).serializable_hash[:data].map{ |collaboration| collaboration[:attributes]}, 
+        status: 200 
+      }
+    else 
+      render json: {
+        errors: ['No records found'],
+        status: 422
+      }
+    end
+  end
+
+  def create
+    collaboration = Collaboration.new(strong_params)
+    collaboration.sender = @user
+    if collaboration.save
+      render json: {
+        data: CollaborationSerializer.new(collaboration).serializable_hash[:data][:attributes],
+        status: 200
+      }
+    else
+      render json: {
+        errors: collaboration.errors,
+        status: 422
+      }
+    end
+  end
+
+  def update
+    collaboration = Collaboration.find(params[:id])
+    collaboration.assign_attributes(strong_params)
+    if collaboration.save
+      render json: {
+        data: CollaborationSerializer.new(collaboration).serializable_hash[:data][:attributes], 
+        status: 200
+      }
+    else 
+      render json: {
+        errors: collaboration.errors,
+        status: 422
+      }
+    end
+  end
+
+  def destroy
+    collaboration = Collaboration.find(params[:id])
+    if collaboration
+      Collaboration.destroy(params[:id])
+      render json: {
+        data: params[:id],
+        status: 200
+      }
+    else 
+      render json: {
+        errors: ['Unable to delete collaboration'],
+        status: 422
+      }
+    end
   end
 
   private
 
-  def render_collabs(user)
-    profiles = user.collabs.map{ |collab| collab.profile }
-    render json: ProfileSerializer.new(profiles).serializable_hash[:data]
-  end
-
-  def render_not_found
-    render json: { status: :unprocessable_entity, errors: ['Record not found'] }
+  def strong_params
+    params.require(:collaboration).permit(:id, :sender_id, :receiver_id, :accepted)
   end
 end
