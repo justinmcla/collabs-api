@@ -24,4 +24,5 @@ RSpec.describe User, type: :model do
     user.build_profile(name: Faker::Name.name)
     expect(user.profile.class).to_not eq Array
   end 
+  pending "add some examples to (or delete) #{__FILE__}"
 end
