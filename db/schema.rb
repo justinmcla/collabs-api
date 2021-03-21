@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_19_153926) do
+ActiveRecord::Schema.define(version: 2021_03_21_141800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,14 +44,6 @@ ActiveRecord::Schema.define(version: 2021_03_19_153926) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "locations", force: :cascade do |t|
-    t.string "city"
-    t.string "state"
-    t.string "zip"
-    t.bigint "profile_id", null: false
-    t.index ["profile_id"], name: "index_locations_on_profile_id"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -70,23 +62,18 @@ ActiveRecord::Schema.define(version: 2021_03_19_153926) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "url"
     t.string "profession"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "facebook"
+    t.string "github"
+    t.string "instagram"
+    t.string "linkedin"
+    t.string "medium"
+    t.string "twitter"
+    t.string "youtube"
+    t.string "twitch"
     t.index ["user_id"], name: "index_profiles_on_user_id"
-  end
-
-  create_table "social_links", force: :cascade do |t|
-    t.string "provider"
-    t.string "handle"
-    t.bigint "profile_id", null: false
-    t.index ["profile_id"], name: "index_social_links_on_profile_id"
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.string "taggable_type", null: false
-    t.bigint "taggable_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["taggable_type", "taggable_id"], name: "index_tags_on_taggable_type_and_taggable_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -97,8 +84,6 @@ ActiveRecord::Schema.define(version: 2021_03_19_153926) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "locations", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
-  add_foreign_key "social_links", "profiles"
 end
