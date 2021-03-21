@@ -1,7 +1,5 @@
 class Profile < ApplicationRecord
   belongs_to :user
-  has_one :location
-  has_many :social_links
   has_one_attached :profile_picture
 
   # VALIDATIONS
@@ -11,4 +9,5 @@ class Profile < ApplicationRecord
   def image_url
     Rails.application.routes.url_helpers.url_for(profile_picture) if profile_picture.attached?
   end
+
 end
