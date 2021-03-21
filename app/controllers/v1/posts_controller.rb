@@ -20,6 +20,15 @@ class V1::PostsController < ApplicationController
     end
   end
 
+  def show
+    author = User.find(params[:id])
+    posts = Post.all.where(author: author).limit(20).order(created_at: :desc)
+    render json: {
+      data: PostSerializer.new(posts).serializable_hash[:data].map{ |post| post[:attributes] }, 
+      status: 200 
+    }
+  end
+
   private
 
   def strong_params
