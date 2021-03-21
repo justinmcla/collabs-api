@@ -33,11 +33,6 @@ module CollabsApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
-    # Enabling session cookies for the front-end browser client
-    config.session_store :cookie_store, key: '_interslice_session'
-    config.middleware.use ActionDispatch::Cookies
-    config.middleware.use config.session_store, config.session_options
     
     # Enabling override of HTTP POST requests via method
     config.middleware.use Rack::MethodOverride

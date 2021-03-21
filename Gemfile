@@ -19,6 +19,9 @@ gem 'puma', '~> 4.1'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Use Amazon S3 for file uploads
+gem 'aws-sdk-s3'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -28,10 +31,17 @@ gem 'rack-cors'
 # Use JWT for front-end authentication with Auth0
 gem 'jwt'
 
+# Use serializers for rendering JSON
+gem 'jsonapi-serializer'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Use rspec for unit testing
   gem 'rspec-rails', '~> 4.0.2'
+  # Generate fake data for seeds/testing
+  gem 'faker'
+  # Use environment variables in dev, test
   gem 'dotenv-rails'
 end
 
