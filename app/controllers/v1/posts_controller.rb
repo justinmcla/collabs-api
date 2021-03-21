@@ -1,10 +1,10 @@
 class V1::PostsController < ApplicationController
   def index
     if params['query'] == 'all'
-      posts = Post.all
+      posts = Post.all.limit(20).order(created_at: :desc)
       render json: { data: PostSerializer.new(posts).serializable_hash[:data].map{ |post| post[:attributes] }, status: 200 }
     else
-      posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+      posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%").order(created_at: :desc)
       render json: { data: PostSerializer.new(posts).serializable_hash[:data].map{ |post| post[:attributes] }, status: 200 }
     end
   end 
