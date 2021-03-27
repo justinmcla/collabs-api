@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+
   before_validation :generate_uuid
 
   validates :sub, presence: true, uniqueness: true
