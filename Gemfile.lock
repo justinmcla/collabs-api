@@ -106,10 +106,12 @@ GEM
     marcel (1.0.0)
     method_source (1.0.0)
     mini_mime (1.0.3)
+    mini_portile2 (2.5.0)
     minitest (5.14.4)
     msgpack (1.4.2)
     nio4r (2.5.7)
-    nokogiri (1.11.2-x86_64-darwin)
+    nokogiri (1.11.2)
+      mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     pg (1.2.3)
     puma (4.3.7)
@@ -188,7 +190,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-  x86_64-darwin-19
+  ruby
 
 DEPENDENCIES
   aws-sdk-s3
@@ -209,7 +211,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 2.6.1p33
+   ruby 2.6.6p146
 
 BUNDLED WITH
-   2.2.11
+   1.17.3
